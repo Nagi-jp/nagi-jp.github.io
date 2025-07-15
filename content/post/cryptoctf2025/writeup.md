@@ -8,7 +8,7 @@ tags:
     - [mpc, rsa]
 ---
 
-# Introduction
+## Introduction
 
 どうも，Nagiです．
 
@@ -23,9 +23,9 @@ tags:
 （upsolveしたら別でwriteupを投稿したいけど，時間があるかどうか...）
 
 
-# Vinad
+## Vinad
 
-## source code
+### source code
 
 以下とは別に$(R,n,c)$が書かれたoutput.txtも配布されたがここでの記載は省略する．
 
@@ -66,7 +66,7 @@ print(f'n = {pubkey[2]}')
 print(f'c = {c}')
 ```
 
-## description
+### description
 
 parinad関数について以下が成り立つことがわかります．
 
@@ -101,7 +101,7 @@ $e$も同様にして２通りに絞れます．
 これで秘密鍵が求まるので復号すればflagが求まります．
 
 
-## solver
+### solver
 
 ```python
 
@@ -160,9 +160,9 @@ if __name__ == '__main__':
 
 
 
-# interpol
+## interpol
 
-## source code
+### source code
 
 
 ```python
@@ -201,7 +201,7 @@ f.close()
 ```
 
 
-## description
+### description
 
 polyはLagrange interpolationにより得られた多項式です．
 
@@ -223,7 +223,7 @@ flagの情報が入った点を見つける戦略は，polyに$x=0,1,\ldots$と�
 （余談ですが，たまたま2,3日前にShamir's secret sharingの勉強をしていてLagrange interpolationへの解像度が高かったです．ラッキー！）
 
 
-## solver
+### solver
 
 ```python
 
