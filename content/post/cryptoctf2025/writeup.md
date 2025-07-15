@@ -6,6 +6,7 @@ categories:
     - writeup
 tags:
     - [mpc, rsa]
+math: true
 ---
 
 ## Introduction
@@ -78,7 +79,7 @@ $$
 \end{align*}
 $$
 
-したがって，$ p $を生成したときのvinad関数の処理は次のように書けます．
+したがって，$p$を生成したときのvinad関数の処理は次のように書けます．
 
 $$
 \begin{align*}
