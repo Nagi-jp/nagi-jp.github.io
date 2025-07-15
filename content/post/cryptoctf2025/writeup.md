@@ -1,7 +1,7 @@
 ---
 title: Crypto CTF 2025
 description: writeup
-date: 2025-07-13
+date: 2025-07-15
 categories:
     - writeup
 tags:
