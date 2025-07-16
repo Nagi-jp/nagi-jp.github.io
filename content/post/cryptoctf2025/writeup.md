@@ -91,7 +91,14 @@ $$
 
 ここで$r$は固定の値なので$\text{parinad}(r)$は$0$か$1$のどちらかで固定です．
 
-よって，$p = 0\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ 0\oplus \text{parinad}(R[n])$あるいは$p = 1\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ 1\oplus \text{parinad}(R[n])$のどちらかであることがわかります．
+よって，$p$は
+$$
+\begin{align*}
+p &= 0\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ 0\oplus \text{parinad}(R[n])\\
+p &= 1\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ 1\oplus \text{parinad}(R[n])
+\end{align*}
+$$
+のどちらかであることがわかります．
 
 与えられた$R$から上記の２通りを計算し，$n$の約数である方を選ぶことで$p$が求まります．
 
@@ -99,7 +106,7 @@ $e$も同様にして２通りに絞れます．
 
 正しい$e$は$\gcd(e,(p-1)(q-1))=1$を満たします．
 
-これで秘密鍵が求まるので復号すればflagが求まります．
+これで秘密鍵を求めるための情報が揃ったのでflagが求まります．
 
 
 ### solver
@@ -211,7 +218,7 @@ polyはLagrange interpolationにより得られた多項式です．
 - $(x,y) = ((-(1 + (19*n - 14) \mod \text{len(flag)}), \text{ord(flag}[(63 * n - 40) \mod \text{len(flag)}])))$
 - $(x,y) = (\text{randint}(0, 313), (-1) ** \text{randint}(0, 1) * \text{Rational(str(getPrime}(32)) + '/' + \text{str(getPrime}(32))))$
 
-という２点です．
+を満たす点たちです．
 
 ごちゃついていますが一言で言うと，前者はflagの情報が入った点で，後者はflagの情報がないダミーの点です．
 
