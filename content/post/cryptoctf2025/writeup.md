@@ -208,7 +208,7 @@ polyはLagrange interpolationにより得られた多項式です．
 
 では，どのような点をLagrange interpolationに使ったかというと
 
-- $(x,y) = ((-(1 + (19*n - 14) \% \text{len(flag)}), \text{ord}(\text{flag}[(63 * n - 40) \% \text{len(flag)}])))$
+- $(x,y) = ((-(1 + (19*n - 14) \text{\%} \text{len(flag)}), \text{ord(flag}[(63 * n - 40) \text{\%} \text{len(flag)}])))$
 - $(x,y) = (\text{randint}(0, 313), (-1) ** \text{randint}(0, 1) * \text{Rational(str(getPrime}(32)) + '/' + \text{str(getPrime}(32))))$
 
 という２点です．
