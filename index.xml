@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nagi's CTF blog</title><link>https://nagi-jp.github.io/</link><description>Recent content on Nagi's CTF blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 27 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nagi-jp.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello World</title><link>https://nagi-jp.github.io/p/hello-world/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://nagi-jp.github.io/p/hello-world/</guid><description>&lt;img src="https://nagi-jp.github.io/p/hello-world/cover.jpg" alt="Featured image of post Hello World" />&lt;p>Welcome to Hugo theme Stack. This is your first post. Edit or delete it, then start writing!&lt;/p>
+&lt;p>For more information about this theme, check the documentation: &lt;a class="link" href="https://stack.jimmycai.com/" target="_blank" rel="noopener"
+>https://stack.jimmycai.com/&lt;/a>&lt;/p>
+&lt;p>Want a site like this? Check out &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>hugo-theme-stack-stater&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
+>Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>SECCON Beginners CTF 2025</title><link>https://nagi-jp.github.io/p/seccon-beginners-ctf-2025/</link><pubDate>Sun, 27 Jul 2025 00:00:00 +0000</pubDate><guid>https://nagi-jp.github.io/p/seccon-beginners-ctf-2025/</guid><description>&lt;h2 id="introduction">Introduction
+&lt;/h2>&lt;p>どうも，Nagiです．&lt;/p>
+&lt;p>2025/07/26,27に開催されたSECCON Beginners CTF 2025にsayonaraで参加して2位でした！&lt;/p>
+&lt;p>チーム初の全完ということも相まってとても嬉しかったです．&lt;/p>
+&lt;p>１位のTPCさんとは全完のタイムが80秒差だったので，ちょっぴり悔しいですね〜（おめでとうございます！）&lt;/p>
+&lt;p>僕の呼びかけに応じて予定を空けて参加してくれたメンバーのみんなに感謝です，ありがとう！&lt;/p>
+&lt;p>僕個人としては，Cryptoを３問解きました．&lt;/p>
+&lt;ul>
+&lt;li>seesaw (10th blood)&lt;/li>
+&lt;li>elliptic4b (2nd blood)&lt;/li>
+&lt;li>mathmyth (チームメンバーが先に解いてた)&lt;/li>
+&lt;/ul>
+&lt;p>この３問についてwriteupを書いていきます．&lt;/p>
+&lt;h2 id="seesaw">seesaw
+&lt;/h2>&lt;h3 id="source">source
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">getPrime&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">FLAG&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getenv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;FLAG&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;ctf4b&lt;/span>&lt;span class="si">{dummy_flag}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">FLAG&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;big&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">q&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">65537&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="si">= }&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">c&lt;/span> &lt;span class="si">= }&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="description">Description
+&lt;/h3>&lt;p>$q$が16bitなので$n$を素因数分解できてしまいます．&lt;/p>
+&lt;h3 id="solver">solver
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">bytes_to_long&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">getPrime&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">362433315617467211669633373003829486226172411166482563442958886158019905839570405964630640284863309204026062750823707471292828663974783556794504696138513859209&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">33091&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">q&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">65537&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">phi&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">phi&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">104442881094680864129296583260490252400922571545171796349604339308085282733910615781378379107333719109188819881987696111496081779901973854697078360545565962079&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">dec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ct&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ct&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pt&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="elliptic4b">elliptic4b
+&lt;/h2>&lt;h3 id="source-1">source
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">secrets&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">fastecdsa.curve&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">secp256k1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">fastecdsa.point&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Point&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">environ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;FLAG&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;CTF&lt;/span>&lt;span class="si">{dummy_flag}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">secrets&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randbelow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">secp256k1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="si">= }&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;x = &amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">secp256k1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_point_on_curve&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;// Not on curve!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a = &amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">P&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Point&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">secp256k1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">P&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;// a must be non-negative!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">P&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">Q&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;// x-coordinates do not match!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">P&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">Q&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;// P and Q are the same point!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;flag =&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="description-1">Description
+&lt;/h3>&lt;p>以下の２つに答えるとflagがもらえます．&lt;/p>
+&lt;ol>
+&lt;li>楕円曲線上のある点の$y$座標が与えられるので対応する$x$座標．&lt;/li>
+&lt;li>$P=(x,y)$に対して，$-P=aP$となる$a\in \mathbb{Z}_{\geq 0}$．&lt;/li>
+&lt;/ol>
+&lt;h4 id="find-x">find x
+&lt;/h4>&lt;p>楕円曲線$E(\mathbb{F_p}):y^{2}=x^{3}+7$において，ある$P\in E(\mathbb{F_p})$の$y$座標（$y_{P}$とする）が与えられるので，対応する$x$座標（$x_{P}$とする）を答えれば第一関門突破です．&lt;/p>
+$$
+\begin{align*}
+y_{P}^{2}&amp;=x_{P}^{3}+7\mod p\\
+\implies x_{P}^{3}&amp;= y_{P}^{2}-7\mod p
+\end{align*}
+$$&lt;p>となるので，$y_{P}^{2}-7$の法$p$上での3乗根を求めれば$x_{P}$を得られます．&lt;/p>
+&lt;h4 id="answer-a">answer a
+&lt;/h4>&lt;p>次に$a\in\mathbb{Z}_{\geq 0}$として$Q=aP$を考えます．&lt;/p>
+&lt;p>$Q=(x_{Q},y_{Q})$が以下を満たすような$a$を求められればflagを得られます．&lt;/p>
+&lt;ul>
+&lt;li>$x_{P}=x_{Q}$&lt;/li>
+&lt;li>$y_{P}\neq y_{Q}$&lt;/li>
+&lt;/ul>
+&lt;p>すなわち，$Q=-P$となるような$a$を見つければよいです．
+残念ながら，$a\geq 0$であるから$a=-1$とはできません．&lt;/p>
+&lt;p>そこで，$P$の位数$n$から１を引いた値を$a$にすれば$-P=aP$を満たします．&lt;/p>
+&lt;h3 id="solver-1">solver
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">environ&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;TERM&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;xterm&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pwn&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">solve&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">io&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">remote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;elliptic4b.challenges.beginners.seccon.jp&amp;#34;&lt;/span> &lt;span class="p">,&lt;/span> &lt;span class="mi">9999&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">io&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">recvuntil&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s1">&amp;#39;y = &amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">y_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">io&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">recvline&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strip&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Integer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y_str&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;y=&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># https://neuromancer.sk/std/secg/secp256k1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mh">0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">K&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">GF&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mh">0x0000000000000000000000000000000000000000000000000000000000000000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">K&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mh">0x0000000000000000000000000000000000000000000000000000000000000007&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">E&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">EllipticCurve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">K&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Integer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">K&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="o">^&lt;/span>&lt;span class="mi">2&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">nth_root&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">io&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sendlineafter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s1">&amp;#39;x = &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">P&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">E&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">P_ord&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">P&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">P_ord&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">io&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sendlineafter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s1">&amp;#39;a = &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">io&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">recvline&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">solve&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="mathmyth">mathmyth
+&lt;/h2>&lt;h3 id="source-2">source
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">getPrime&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">isPrime&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bytes_to_long&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nn">hashlib&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nn">secrets&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">next_prime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">n&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">isPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">n&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">n&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">g&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">salt&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">q_bytes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">q&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">to_bytes&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bit_length&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;big&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">salt_bytes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">salt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">to_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;big&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">h&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hashlib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sha512&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q_bytes&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">salt_bytes&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">digest&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">h&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;big&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">BITS_q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">280&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">salt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">secrets&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randbits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">128&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">r&lt;/span> &lt;span class="o">*=&lt;/span> &lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">attempt&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BITS_q&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cand&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">q&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">q&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">next_prime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">salt&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">r&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">isPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cand&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cand&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">raise&lt;/span> &lt;span class="ne">RuntimeError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Failed to find suitable prime p&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">q&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mh">0x10001&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getenv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;FLAG&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;ctf4b&lt;/span>&lt;span class="si">{dummy_flag}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encode&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bytes_to_long&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;n = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;e = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;c = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;r = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="description-2">Description
+&lt;/h3>&lt;p>私の力不足で長々とした説明になっています，ご注意ください．&lt;/p>
+&lt;p>全体の流れとしては$q$の近似を考え，そこから$q$までの差をbrute forceといった感じです．&lt;/p>
+&lt;p>以下では$r&amp;rsquo; := nextprime(r), g := g(q,salt)$としています．&lt;/p>
+&lt;h4 id="find-qr">find q%r
+&lt;/h4>$$
+\begin{align*}
+n &amp;= q^{3}\cdot r' + q\cdot g\cdot r \mod r\\
+&amp;= q^{3}\cdot r'\mod r\\
+\implies q^{3} &amp;= n\cdot(r')^{-1} \mod r
+\end{align*}
+$$&lt;p>
+3乗根を取ることで$q$%$r$の候補が求まります．&lt;/p>
+&lt;p>$q$を$r$で割った余りを使うと除法の定理より
+&lt;/p>
+$$
+q = (q//r)r + (q\%r)
+$$&lt;p>
+と書けます．&lt;/p>
+&lt;h4 id="approximate-q">approximate q
+&lt;/h4>&lt;p>$q^{3}\cdot r&amp;rsquo;$は1064bit，$q\cdot g\cdot r$は1016bitであるから$n \approx q^{3}\cdot r$&amp;lsquo;とみることができます．
+$q$の近似値$\tilde{q}$を以下のように定義します．&lt;/p>
+$$
+\tilde{q}\approx \sqrt[3]{\frac{n}{r'}}
+$$&lt;p>ここで$q$%$r$を使うことで，$\tilde{q}$よりも良い$q$の近似$q&amp;rsquo;$を以下のように定義できます．
+&lt;/p>
+$$
+q' := (\tilde{q}//r)r + (q\%r)
+$$&lt;p>$q&amp;rsquo;$と$q$との差を考えます．&lt;/p>
+$$
+\begin{align*}
+q' - q &amp;= (q//r)r + (q\%r) - \{(\tilde{q}//r)r + (q\%r)\}\\
+&amp;= r( q//r - \tilde{q}//r )
+\end{align*}
+$$&lt;p>つまり，$q,q&amp;rsquo;$は$r$の定数倍の差があることがわかります．
+定数倍の部分がbrute forceできるくらいの値であれば嬉しいです．&lt;/p>
+&lt;h4 id="analysis">analysis
+&lt;/h4>&lt;p>$q//r - q&amp;rsquo;//r=\frac{q-q&amp;rsquo;}{r}$がどれくらいの値に収まっているのかを概算します．
+$\tilde{q}^{3}-q^{3} = g\cdot q$であり，$g\cdot q$は792bitです．
+このことから，$\sqrt[3]{\tilde{q}^{3}-q^{3}}$は264bitくらいになります．&lt;/p>
+&lt;p>一方で，
+&lt;/p>
+$$
+(\tilde{q}-q)^{3}\leq \tilde{q}^{3}-q^{3}
+$$&lt;p>
+より，$\sqrt{\tilde{q}-q)^{3}} = q-\tilde{q}$は264bit以下です．&lt;/p>
+&lt;p>したがって，$\frac{q-q&amp;rsquo;}{r}$は最大でも40bitだとわかります．&lt;/p>
+&lt;h4 id="find-q">find q
+&lt;/h4>&lt;p>以下のような式を考え，$c$をbrute forceしていく．
+&lt;/p>
+$$
+q'-c\cdot r = (\tilde{q}//r)r + (q\%r)-c\cdot r
+$$&lt;p>
+最終的に&lt;/p>
+&lt;ul>
+&lt;li>$q&amp;rsquo;-c\cdot r&amp;gt;0$&lt;/li>
+&lt;li>$(q&amp;rsquo;-c\cdot r)\mid n$&lt;/li>
+&lt;/ul>
+&lt;p>を満たすものが$q$になります．&lt;/p>
+&lt;h3 id="solver-2">solver
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">23734771090248698495965066978731410043037460354821847769332817729448975545908794119067452869598412566984925781008642238995593407175153358227331408865885159489921512208891346616583672681306322601209763619655504176913841857299598426155538234534402952826976850019794857846921708954447430297363648280253578504979311210518547&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">65537&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">22417329318878619730651705410225614332680840585615239906507789561650353082833855142192942351615391602350331869200198929410120997195750699143505598991770858416937216272158142281144782652750654697847840376002907226725362778292640956434687927315158519324142726613719655726444468707122866655123649786935639872601647255712257&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">4788463264666184142381766080749720573563355321283908576415551013379&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">np&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">next_prime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;next_prime(r) = &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">np&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">r_factors&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">factor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">primes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">e&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">r_factors&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;primes=&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">primes&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">F&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Zmod&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">inverse_mod&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">np&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">r&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">F&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">nth_root&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">all&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q_low_cand&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">temp&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># brute force&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q_approx3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Integer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">q_approx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">is_exact&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">q_approx3&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">nth_root&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">truncate_mode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;q_approx=&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">q_approx&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">q_low&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">q_low_cand&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">q_cand&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">q_approx&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">r&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">q_low&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">q_test&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">q_cand&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">r&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">q_test&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">q_test&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;k=&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;q=&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">q_test&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">q_test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">phi&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">q_test&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">inverse_mod&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">phi&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">power_mod&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;flag = &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flag&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Crypto CTF 2025</title><link>https://nagi-jp.github.io/p/crypto-ctf-2025/</link><pubDate>Tue, 15 Jul 2025 00:00:00 +0000</pubDate><guid>https://nagi-jp.github.io/p/crypto-ctf-2025/</guid><description>&lt;h2 id="introduction">Introduction
+&lt;/h2>&lt;p>どうも，Nagiです．&lt;/p>
+&lt;p>2025/07/12,13に行われたCryptoCTF 2025にsayonaraで参加して79位でした．&lt;/p>
+&lt;p>開始早々，easy問題を２つテンポよく解けたのですが，medium以上になると歯が立ちませんでした．&lt;/p>
+&lt;p>夜になるとチームメンバーが合流し，easy問題を１つとmedium問題を１つ解いてくれました．&lt;/p>
+&lt;p>今回は当日僕が解けた問題のwriteupを投稿します．&lt;/p>
+&lt;p>（upsolveしたら別でwriteupを投稿したいけど，時間があるかどうか&amp;hellip;）&lt;/p>
+&lt;h2 id="vinad">Vinad
+&lt;/h2>&lt;h3 id="source-code">source code
+&lt;/h3>&lt;p>以下とは別に$(R,n,c)$が書かれたoutput.txtも配布されたがここでの記載は省略する．&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="ch">#!/usr/bin/env python3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flag&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">flag&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">parinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">bin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">count&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">vinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">parinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">^&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">r&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">genkey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nbit&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">R&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">getRandomNBitInteger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nbit&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nbit&lt;/span>&lt;span class="p">)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getRandomNBitInteger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nbit&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nbit&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">isPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">vinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mh">0x10001&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">GCD&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">p&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">q&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">q&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">encrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pubkey&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pubkey&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">R&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">nbit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">512&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pubkey&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">genkey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nbit&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bytes_to_long&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">assert&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">pubkey&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">encrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pubkey&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;R = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">pubkey&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;n = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">pubkey&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;c = &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="description">description
+&lt;/h3>&lt;p>parinad関数について以下が成り立つことがわかります．&lt;/p>
+$$
+\begin{align*}
+\text{parinad}(a\oplus b) &amp;= \sum\limits_{i}(a_{i}+b_{i})\mod 2 \\
+&amp;= \sum\limits_{i}a_{i} + \sum\limits_{j} b_{j}\mod 2\\
+&amp;= \text{parinad}(a)\oplus \text{parinad}(b)
+\end{align*}
+$$&lt;p>したがって，$p$を生成したときのvinad関数の出力は次のように書けます．&lt;/p>
+$$
+\begin{align*}
+p &amp;= \text{vinad}(r,R) \\
+&amp;= \text{parinad}(r\oplus R[0])\ || \cdots\ || \text{parinad}(r\oplus R[n])\\
+&amp;= \text{parinad}(r)\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ \text{parinad}(r)\oplus \text{parinad}(R[n])
+\end{align*}
+$$&lt;p>ここで$r$は固定の値なので$\text{parinad}(r)$は$0$か$1$のどちらかで固定です．&lt;/p>
+&lt;p>よって，$p$は
+&lt;/p>
+$$
+\begin{align*}
+p &amp;= 0\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ 0\oplus \text{parinad}(R[n])\\
+p &amp;= 1\oplus \text{parinad}(R[0])\ ||\ \cdots\ ||\ 1\oplus \text{parinad}(R[n])
+\end{align*}
+$$&lt;p>
+のどちらかであることがわかります．&lt;/p>
+&lt;p>与えられた$R$から上記の２通りを計算し，$n$の約数である方を選ぶことで$p$が求まります．&lt;/p>
+&lt;p>$e$も同様にして２通りに絞れます．&lt;/p>
+&lt;p>正しい$e$は$\gcd(e,(p-1)(q-1))=1$を満たします．&lt;/p>
+&lt;p>これで秘密鍵を求めるための情報が揃ったのでflagが求まります．&lt;/p>
+&lt;h3 id="solver">solver
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">R&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">Euclid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="n">r&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">r&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">parinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">bin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">count&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">solve&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">nbit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">512&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">R_pari&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">parinad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r_i&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">r_i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">R&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">R_pari&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">p1&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mask&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">nbit&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p1&lt;/span> &lt;span class="o">^&lt;/span> &lt;span class="n">mask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">p2&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;どっかだめー&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">q&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">p&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">phi&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">q&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">Euclid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">phi&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">phi&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">R&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">p&lt;/span> &lt;span class="o">^&lt;/span> &lt;span class="n">mask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">phi&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">long_to_bytes&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nb">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">R&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">solve&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="interpol">interpol
+&lt;/h2>&lt;h3 id="source-code-1">source code
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#!/usr/bin/env sage&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">Crypto.Util.number&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flag&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">flag&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">randpos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">19&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">14&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="nb">ord&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">[(&lt;/span>&lt;span class="mi">63&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">)]))]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[(&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">313&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">**&lt;/span> &lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">Rational&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">32&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">getPrime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">32&lt;/span>&lt;span class="p">))))]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">DATA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">randpos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">H&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">DATA&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">_b&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">n&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DATA&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">_d&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">_d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">H&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DATA&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">_d&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">A&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">DATA&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">_&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">DATA&lt;/span>&lt;span class="p">))]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">poly&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">QQ&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;x&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">lagrange_polynomial&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">DATA&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dumps&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">f&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;output.raw&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;wb&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">poly&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="description-1">description
+&lt;/h3>&lt;p>polyはLagrange interpolationにより得られた多項式です．&lt;/p>
+&lt;p>では，どのような点をLagrange interpolationに使ったかというと&lt;/p>
+&lt;ul>
+&lt;li>$(x,y) = ((-(1 + (19*n - 14) \mod \text{len(flag)}), \text{ord(flag}[(63 * n - 40) \mod \text{len(flag)}])))$&lt;/li>
+&lt;li>$(x,y) = (\text{randint}(0, 313), (-1) ** \text{randint}(0, 1) * \text{Rational(str(getPrime}(32)) + &amp;lsquo;/&amp;rsquo; + \text{str(getPrime}(32))))$&lt;/li>
+&lt;/ul>
+&lt;p>を満たす点たちです．&lt;/p>
+&lt;p>ごちゃついていますが一言で言うと，前者はflagの情報が入った点で，後者はflagの情報がないダミーの点です．&lt;/p>
+&lt;p>ただし，flagの情報が入ったすべての点はLagrange interpolationに使われています．&lt;/p>
+&lt;p>flagの情報が入った点を見つける戦略は，polyに$x=0,1,\ldots$と代入していき，$y$の値が整数かつASCIIに対応している範囲のときはflagの点としました．&lt;/p>
+&lt;p>また，flagの文字が見つかる順番はぐちゃぐちゃなので，flagの何文字目が見つかったかを記録しておくことで最後に正しい順に並び替えることができます．&lt;/p>
+&lt;p>（余談ですが，たまたま2,3日前にShamir&amp;rsquo;s secret sharingの勉強をしていてLagrange interpolationへの解像度が高かったです．ラッキー！）&lt;/p>
+&lt;h3 id="solver-1">solver
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">solve&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;output.raw&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;rb&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">poly_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">P&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">loads&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">poly_data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">length&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag_chars&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">idx_list&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">19&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">14&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">length&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">P&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_integer&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="mi">32&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">126&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">char&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">chr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">idx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">63&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">length&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">idx_list&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">idx&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag_chars&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">char&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag_list&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">length&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">char&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">flag_chars&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">destination_idx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">idx_list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag_list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination_idx&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">char&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag_list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">flag&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">startswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;CCTF{&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">flag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">solve&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Archives</title><link>https://nagi-jp.github.io/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://nagi-jp.github.io/archives/</guid><description/></item><item><title>Search</title><link>https://nagi-jp.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://nagi-jp.github.io/search/</guid><description/></item></channel></rss>
